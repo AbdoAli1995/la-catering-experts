@@ -20,3 +20,11 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 button{width:100%;background:var(--dark);color:#fff;padding:14px;border:none;border-radius:8px;font-size:1rem;font-weight:bold;cursor:pointer}
 footer{max-width:760px;margin:24px auto 0;text-align:center;color:#777;font-size:.75rem}
 footer a{color:#777}
+.wrap h2{font-size:1.15rem;margin:24px 0 8px}
+.wrap p,.wrap li{font-size:.92rem;line-height:1.65;color:#333}
+.wrap ul{padding-left:20px}
+.box h1{text-align:left;font-size:1.4rem}
+.updated{color:#777;font-size:.8rem}
+.faq h3{font-size:.98rem;margin:16px 0 4px}
+.faq p{margin:0}
+.thanks{display:none;background:#fdf8f0;border:1px solid #c9933b;border-radius:8px;padding:14px;margin-top:14px}
