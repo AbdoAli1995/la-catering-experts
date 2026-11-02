@@ -2,33 +2,34 @@
 
 ## Product intent & audience
 
-- Project is a website whose visibility/accessibility is currently being investigated.
+- Project is a website whose visibility/accessibility and source-control status are being investigated.
 - No product domain, target audience, or business context has been established.
 
 ## Brand personality & voice
 
-- No brand personality or voice requirements inferred yet.
-- User communicates in Arabic; future troubleshooting responses may be most useful in Arabic unless they request otherwise.
+- No brand personality or voice requirements inferred.
+- User communicates in Arabic; troubleshooting guidance may be most useful in Arabic unless requested otherwise.
 
 ## Visual design & UX direction
 
 - No visual, layout, typography, interaction, or responsive-design direction is known.
-- The current issue concerns whether the site appears or loads, not its visual presentation.
+- Current concerns are operational: site visibility, deployment, and GitHub synchronization.
 
 ## Decisions, constraints & rationale
 
-- The reported problem is that the website does not appear.
-- Prior investigation found no known code-level issue preventing the pages from appearing, and indicated that the homepage and other pages were present.
-- Deployment status and domain/DNS connection are the leading external causes currently considered.
-- Diagnosis is blocked without the exact URL and the symptom shown when opening it.
-- Distinguish among a blank page, an error message, a “not found” page, and a domain/DNS failure before proposing a fix.
-- No authoritative project instructions are currently provided in `.bolt/prompt`.
+- GitHub connection status cannot be verified from the current context.
+- The current environment does not show an active Git repository connection; actual remote linkage remains unconfirmed.
+- GitHub synchronization concerns preserving/syncing project files and is separate from making the website publicly accessible.
+- Deployment status and domain/DNS connection remain likely external causes if the site does not appear.
+- Diagnosis requires distinguishing a blank page, runtime error, 404/not-found page, DNS failure, or another browser message.
+- The exact URL and observed symptom are still needed for site-visibility troubleshooting.
 
 ## Open questions & assumptions
 
-- What exact URL is being opened?
-- What does the browser show: blank page, runtime error, 404/not found, DNS error, or another message?
-- Is the site deployed and the deployment successful?
-- Is the custom domain correctly connected, with DNS records propagated?
-- Is the issue reproducible on another browser or network?
-- The conclusion that source files and deployment configuration are sound is based on the prior assistant’s report and has not been independently verified in this context.
+- Is the project linked to a GitHub repository?
+- What repository name and synchronization state are shown in the project’s GitHub panel?
+- Are the latest project files synchronized successfully?
+- Is the site deployment successful and connected to the intended domain?
+- What exact URL is being opened, and what does the browser display?
+- Is the issue reproducible in another browser or network?
+- The prior conclusion that source files and deployment configuration are sound has not been independently verified here.
