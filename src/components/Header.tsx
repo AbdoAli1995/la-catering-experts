@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { Menu, X, UtensilsCrossed, PlusCircle } from 'lucide-react';
+import { UtensilsCrossed, Menu, X, PlusCircle } from 'lucide-react';
 
 interface HeaderProps {
   currentView: string;
   onNavigate: (view: string) => void;
 }
 
+const navItems = [
+  { id: 'calculator', label: 'Estimator' },
+  { id: 'taco-catering', label: 'Taco Bar Guide' },
+  { id: 'companies', label: 'Catering Directory' },
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
+];
+
 export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-    const navItems = [
-    { id: 'calculator', label: 'Cost Calculator', href: '/' },
-    { id: 'taco-catering', label: 'Taco Catering', href: '/taco-catering-los-angeles' },
-    { id: 'companies', label: 'Catering Directory', href: '/companies' },
-    { id: 'about', label: 'About Us', href: '/about' },
-    { id: 'contact', label: 'Contact', href: '/contact' },
-  ];
-
 
   const handleNavClick = (viewId: string) => {
     onNavigate(viewId);
@@ -24,12 +23,12 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavClick('calculator')}>
-            <div className="w-9 h-9 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold shadow-xs shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold shadow-sm">
               <UtensilsCrossed className="w-5 h-5" />
             </div>
             <div>
@@ -47,29 +46,27 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             {navItems.map((item) => {
               const isActive = currentView === item.id;
               return (
-                                <a
+                <a
                   key={item.id}
-                  href={item.href}
+                  href={item.id === 'calculator' ? '/' : `/${item.id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(item.id);
                   }}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
                     isActive
-                      ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-b-none'
+                      ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-none'
                       : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
                   }`}
                 >
                   {item.label}
                 </a>
-
-
               );
             })}
 
             <button
               onClick={() => handleNavClick('add-business')}
-              className="ml-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition shadow-xs cursor-pointer"
+              className="ml-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm"
             >
               <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
               List Your Business
@@ -81,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-hidden"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -93,25 +90,31 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200 bg-white px-4 pt-2 pb-4 space-y-1">
-          {navItems.map((item) => (
-                      <a
-            key={item.id}
+          {navItems.map((item) => {
+            const isActive = currentView === item.id;
+            return (
               <a
-    key={item.id}
-    href={item.href}
-    onClick={(e) => {
-      e.preventDefault();
-      handleNavClick(item.id);
-    }}
-    className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
-      currentView === item.id
-        ? 'bg-amber-50 text-amber-800 font-semibold'
-        : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
-    }`}
-  >
-    {item.label}
-  </a>
+                key={item.id}
+                href={item.id === 'calculator' ? '/' : `/${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }}
+                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  isActive
+                    ? 'bg-amber-50 text-amber-700 font-semibold'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-amber-700'
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
 
+          <div className="pt-2">
+            <button
+              onClick={() => handleNavClick('add-business')}
+              className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm"
             >
               <PlusCircle className="w-4 h-4 text-amber-400" />
               List Your Business
