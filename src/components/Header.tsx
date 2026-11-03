@@ -89,17 +89,18 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200 bg-white px-4 pt-2 pb-4 space-y-1">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium ${
-                currentView === item.id
-                  ? 'bg-amber-50 text-amber-800 font-semibold'
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              {item.label}
-            </button>
+                      <a
+            key={item.id}
+            href={item.href}
+            className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
+              currentView === item.id
+                ? 'bg-amber-50 text-amber-800 font-semibold'
+                : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
+            }`}
+          >
+            {item.label}
+          </a>
+
           ))}
           <div className="pt-2">
             <button
