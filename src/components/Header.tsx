@@ -47,17 +47,22 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             {navItems.map((item) => {
               const isActive = currentView === item.id;
               return (
-                <a
-    key={item.id}
-    href={item.href}
-    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-      isActive
-        ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-b-none'
-        : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
-    }`}
-  >
-    {item.label}
-  </a>
+                                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+                    isActive
+                      ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-b-none'
+                      : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {item.label}
+                </a>
+
 
               );
             })}
@@ -91,21 +96,22 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           {navItems.map((item) => (
                       <a
             key={item.id}
-            href={item.href}
-            className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
-              currentView === item.id
-                ? 'bg-amber-50 text-amber-800 font-semibold'
-                : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
-            }`}
-          >
-            {item.label}
-          </a>
+              <a
+    key={item.id}
+    href={item.href}
+    onClick={(e) => {
+      e.preventDefault();
+      handleNavClick(item.id);
+    }}
+    className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
+      currentView === item.id
+        ? 'bg-amber-50 text-amber-800 font-semibold'
+        : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
+    }`}
+  >
+    {item.label}
+  </a>
 
-          ))}
-          <div className="pt-2">
-            <button
-              onClick={() => handleNavClick('add-business')}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-gray-900 text-white hover:bg-gray-800"
             >
               <PlusCircle className="w-4 h-4 text-amber-400" />
               List Your Business
