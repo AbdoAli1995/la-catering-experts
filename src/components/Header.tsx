@@ -9,13 +9,14 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navItems = [
-    { id: 'calculator', label: 'Cost Calculator' },
-    { id: 'taco-catering', label: 'Taco Catering' },
-    { id: 'companies', label: 'Catering Directory' },
-    { id: 'about', label: 'About Us' },
-    { id: 'contact', label: 'Contact' },
+    const navItems = [
+    { id: 'calculator', label: 'Cost Calculator', href: '/' },
+    { id: 'taco-catering', label: 'Taco Catering', href: '/taco-catering-los-angeles' },
+    { id: 'companies', label: 'Catering Directory', href: '/companies' },
+    { id: 'about', label: 'About Us', href: '/about' },
+    { id: 'contact', label: 'Contact', href: '/contact' },
   ];
+
 
   const handleNavClick = (viewId: string) => {
     onNavigate(viewId);
@@ -46,17 +47,18 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             {navItems.map((item) => {
               const isActive = currentView === item.id;
               return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-                    isActive
-                      ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-b-none'
-                      : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {item.label}
-                </button>
+                <a
+    key={item.id}
+    href={item.href}
+    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+      isActive
+        ? 'text-amber-700 font-semibold border-b-2 border-amber-600 rounded-b-none'
+        : 'text-gray-700 hover:text-amber-700 hover:bg-gray-50'
+    }`}
+  >
+    {item.label}
+  </a>
+
               );
             })}
 
