@@ -5,257 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LA Catering Cost Calculator | Los Angeles Catering Experts</title>
   <meta name="description" content="Get an instant catering quote for your Los Angeles event. Weddings, corporate events, private parties and taco bars. Estimate your cost per guest in seconds.">
-  <link rel="stylesheet" href="/style.css">
   <link rel="canonical" href="https://losangelescateringexperts.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="website"><meta property="og:title" content="LA Catering Cost Calculator | Los Angeles Catering Experts"><meta property="og:description" content="Get an instant catering estimate for your Los Angeles event."><meta property="og:url" content="https://losangelescateringexperts.com/">
-  <style>
-    :root {
-      --primary: #c9933b;
-      --dark: #1a1a1a;
-      --light: #f9f9f9;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f4f5f7;
-      color: var(--dark);
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 500px;
-      margin: 20px auto;
-      background: #fff;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    }
-    h1 {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    p.subtitle {
-      text-align: center;
-      color: #666;
-      font-size: 0.9rem;
-      margin-bottom: 25px;
-    }
-    .form-group {
-      margin-bottom: 18px;
-    }
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-sizing: border-box;
-      font-size: 1rem;
-    }
-    .result-box {
-      background: #fdf8f0;
-      border: 1px solid var(--primary);
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
-      margin: 20px 0;
-    }
-    .result-price {
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-    .disclaimer {
-      font-size: 0.75rem;
-      color: #777;
-      margin-top: 6px;
-    }
-    button {
-      width: 100%;
-      background: var(--dark);
-      color: #fff;
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #333;
-    }
-  </style>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://losangelescateringexperts.com/#website",
-      "name": "Los Angeles Catering Experts",
-      "url": "https://losangelescateringexperts.com/",
-      "description": "Explore catering information and estimate event catering costs in Los Angeles, California.",
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "WebApplication",
-      "@id": "https://losangelescateringexperts.com/#estimator",
-      "name": "Los Angeles Catering Cost Estimator",
-      "url": "https://losangelescateringexperts.com/",
-      "description": "A free online tool to estimate catering costs for weddings, corporate events, and private parties in Los Angeles.",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Any",
-      "browserRequirements": "Requires JavaScript",
-      "isAccessibleForFree": true,
-      "isPartOf": {
-        "@id": "https://losangelescateringexperts.com/#website"
-      }
-    }
-  ]
-}
-  </script>
-
-  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="LA Catering Cost Calculator | Los Angeles Catering Experts">
+  <meta property="og:description" content="Get an instant catering quote for your Los Angeles event. Compare vetted LA caterers, taco carts, and private chefs.">
+  <meta property="og:url" content="https://losangelescateringexperts.com/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
-</head>
-<body>
-    <!-- الهيدر العلوي وشريط التنقل الرئيسي -->
-    <header class="site-header">
-        <div class="logo-container">
-            <h1><a href="/">Los Angeles Catering Experts</a></h1>
-        </div>
-        <nav class="main-nav">
-            <a href="/">Home</a>
-            <a href="/about">About Us</a>
-            <a href="/taco-catering-los-angeles.html">Taco Catering</a>
-            <a href="/contact">Contact</a>
-            <a href="/add-business.html" class="btn-list-biz">List Your Business</a>
-        </nav>
-    </header>
+  <meta name="twitter:title" content="LA Catering Cost Calculator | Los Angeles Catering Experts">
+  <meta name="twitter:description" content="Instant quote calculator and directory for Los Angeles catering, weddings, and taco bars.">
 
-    <!-- قسم الهيرو وشريط البحث المزدوج (Yelp-Style Hero Section) -->
-    <section class="hero-search-section">
-        <div class="hero-content">
-            <h2>Find Local Catering in Greater Los Angeles</h2>
-            <p>Compare Vetted Caterers, Private Chefs, and Taco Bars Across LA County</p>
-            
-            <div class="dual-search-bar">
-                <div class="search-field">
-                    <label for="search-service">Find</label>
-                    <input type="text" id="search-service" placeholder="Wedding, Corporate, Taco Bar, Private Chef">
-                </div>
-                <div class="search-divider"></div>
-                <div class="search-field">
-                    <label for="search-location">Near</label>
-                    <input type="text" id="search-location" placeholder="Beverly Hills, Pasadena, 90210, DTLA">
-                </div>
-                <button type="button" class="search-btn">SEARCH</button>
-            </div>
-
-            <!-- أزرار الفلترة السريعة -->
-            <div class="quick-filter-pills">
-                <a href="#weddings" class="pill">💍 Weddings</a>
-                <a href="#corporate" class="pill">💼 Corporate</a>
-                <a href="#taco-bar" class="pill">🌮 Taco Bar</a>
-                <a href="#private-chef" class="pill">👨‍🍳 Private Chef</a>
-                <a href="#food-truck" class="pill">🚚 Food Truck</a>
-            </div>
-        </div>
-    </section>
-
-
-<div class="container">
-  <h1>LA Catering Estimator</h1>
-  <p class="subtitle">Get an instant quote for your Los Angeles event</p>
-
-  <div class="form-group">
-    <label for="eventType">Event Type</label>
-    <select id="eventType" onchange="calculate()">
-      <option value="35">Corporate Event ($35/guest)</option>
-      <option value="65">Wedding Reception ($65/guest)</option>
-      <option value="45">Private Party ($45/guest)</option>
-      <option value="25">Taco Bar / Casual ($25/guest)</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="guests">Number of Guests</label>
-    <input type="number" id="guests" value="50" min="10" oninput="calculate()">
-  </div>
-
-  <div class="result-box">
-    <div>Estimated Total:</div>
-    <div class="result-price" id="totalPrice">$1,750</div>
-    <div class="disclaimer">This is an estimate only. Final pricing depends on menu, location and services.</div>
-  </div>
-
-  <form action="https://formspree.io/f/xbldbeoo" method="POST">
-    <input type="hidden" name="Estimate" id="hiddenEstimate" value="$1,750">
-    <input type="hidden" name="Event_Type" id="hiddenType" value="Corporate Event ($35/guest)">
-    <input type="hidden" name="Guests" id="hiddenGuests" value="50">
-    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-
-    <div class="form-group">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" placeholder="John Doe" required>
-    </div>
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" placeholder="john@example.com" required>
-    </div>
-    <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="(310) 555-0199" required>
-    </div>
-
-    <button type="submit">Get My Quote</button>
-    <p class="disclaimer">By clicking Get My Quote, you agree to our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a> and agree that we and catering companies may contact you about your event by phone, text or email. See our <a href="/do-not-sell">opt-out page</a>.</p>
-  </form>
-  <p style="text-align:center;margin-top:18px;font-size:0.9rem"><a href="/companies">Browse Los Angeles catering companies</a></p>
-</div>
-
-<div class="wrap"><div class="box faq">
-<h2 style="margin-top:0">How Los Angeles catering is priced</h2>
-<p>Most caterers quote per person, then add charges for service, staffing, rentals, delivery and taxes. The calculator above uses simple planning rates by event type so you can budget before you ask for quotes.</p>
-<ul><li><b>Guest count:</b> larger groups usually lower the per-person price, and many caterers set minimums.</li>
-<li><b>Menu and service style:</b> drop-off trays cost less than buffets, stations or plated dinners with servers.</li>
-<li><b>Extras:</b> rentals, bartending, travel across LA traffic, and setup or cleanup can add to the total.</li></ul>
-<h2>Frequently asked questions</h2>
-<h3>How much does catering cost per person in Los Angeles?</h3>
-<p>It depends on the menu and service. Our calculator uses planning rates of $25 to $65 per guest depending on event type. Real quotes will differ.</p>
-<h3>Is the estimate a quote?</h3>
-<p>No. It is a rough budget figure. A caterer gives you the actual price after seeing your menu, date and location.</p>
-<h3>Do you provide the catering?</h3>
-<p>No. We are an estimator and directory. You work directly with the catering company you choose.</p>
-<h3>What should I ask a caterer?</h3>
-<p>Ask for the per-person price, the minimum order, what staffing, rentals and delivery cost, and how they handle dietary needs.</p>
-<p style="margin-top:16px"><a href="/companies">Browse Los Angeles catering companies</a></p>
-</div></div><footer><p><a href="/privacy">Privacy Policy</a> &middot; <a href="/terms">Terms of Use</a> &middot; <a href="/do-not-sell">Do Not Sell or Share My Personal Information</a></p><p>&copy; 2026 Los Angeles Catering Experts. Listings are compiled from public information and are not endorsements. Business owners can <a href="/add-business">claim or request removal of a listing</a>.</p></footer>
-
-<script>
-  function calculate() {
-    var sel = document.getElementById('eventType');
-    var rate = parseFloat(sel.value);
-    var guests = Math.max(10, parseInt(document.getElementById('guests').value, 10) || 10);
-    var total = rate * guests;
-    var formatted = '$' + total.toLocaleString('en-US');
-
-    document.getElementById('totalPrice').innerText = formatted;
-    document.getElementById('hiddenEstimate').value = formatted;
-    document.getElementById('hiddenType').value = sel.options[sel.selectedIndex].text;
-    document.getElementById('hiddenGuests').value = guests;
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://losangelescateringexperts.com/#website",
+        "name": "Los Angeles Catering Experts",
+        "url": "https://losangelescateringexperts.com/",
+        "description": "Explore catering information and estimate event catering costs in Los Angeles, California.",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://losangelescateringexperts.com/#estimator",
+        "name": "Los Angeles Catering Cost Estimator",
+        "url": "https://losangelescateringexperts.com/",
+        "description": "A free online tool to estimate catering costs for weddings, corporate events, and private parties in Los Angeles.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "isPartOf": {
+          "@id": "https://losangelescateringexperts.com/#website"
+        }
+      }
+    ]
   }
-  calculate();
-</script>
-
+  </script>
+</head>
+<body class="bg-[#f4f5f7] text-[#1a1a1a]">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

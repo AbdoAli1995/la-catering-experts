@@ -1,0 +1,6 @@
+{
+  "name": "Los Angeles Catering Experts",
+  "description": "Comprehensive Los Angeles catering directory, instant cost estimator, and taco catering guide for weddings, corporate events, and parties.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
