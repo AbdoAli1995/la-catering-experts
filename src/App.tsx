@@ -18,61 +18,47 @@ export function App() {
   const [locationQuery, setLocationQuery] = useState<string>('');
   const [activeFilter, setActiveFilter] = useState<string>('all');
 
-  // Handle URL hash / path mapping
+    // Handle URL path mapping
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      if (!hash) {
-        // Check pathname if served with HTML5 paths
-        const path = window.location.pathname.replace(/^\/|\/$/g, '');
-        if (path === 'taco-catering' || path === 'taco-catering-los-angeles.html' || path === 'taco-catering-los-angeles') {
-          setCurrentView('taco-catering');
-        } else if (path === 'companies' || path === 'companies.html') {
-          setCurrentView('companies');
-        } else if (path === 'about') {
-          setCurrentView('about');
-        } else if (path === 'contact') {
-          setCurrentView('contact');
-        } else if (path === 'add-business' || path === 'add-business.html') {
-          setCurrentView('add-business');
-        } else if (path === 'privacy' || path === 'privacy-policy') {
-          setCurrentView('privacy');
-        } else if (path === 'terms' || path === 'terms.html') {
-          setCurrentView('terms');
-        } else if (path === 'do-not-sell' || path === 'do-not-sell.html') {
-          setCurrentView('do-not-sell');
-        } else {
-          setCurrentView('calculator');
-        }
+    const handlePathChange = () => {
+      const path = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
+      
+      if (path === 'taco-catering' || path === 'taco-catering-los-angeles.html') {
+        setCurrentView('taco-catering');
+      } else if (path === 'companies' || path === 'companies.html') {
+        setCurrentView('companies');
+      } else if (path === 'about') {
+        setCurrentView('about');
+      } else if (path === 'contact') {
+        setCurrentView('contact');
+      } else if (path === 'add-business' || path === 'add-business.html') {
+        setCurrentView('add-business');
+      } else if (path === 'privacy' || path === 'privacy-policy') {
+        setCurrentView('privacy');
+      } else if (path === 'terms' || path === 'terms.html') {
+        setCurrentView('terms');
+      } else if (path === 'do-not-sell' || path === 'do-not-sell.html') {
+        setCurrentView('do-not-sell');
       } else {
-        if (
-          [
-            'calculator',
-            'taco-catering',
-            'companies',
-            'about',
-            'contact',
-            'add-business',
-            'privacy',
-            'terms',
-            'do-not-sell',
-          ].includes(hash)
-        ) {
-          setCurrentView(hash);
-        }
+        setCurrentView('calculator');
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    // Run on initial load
+    handlePathChange();
+
+    window.addEventListener('popstate', handlePathChange);
+    return () => window.removeEventListener('popstate', handlePathChange);
   }, []);
 
-  const navigateTo = (view: string) => {
+
+    const navigateTo = (view: string) => {
     setCurrentView(view);
-    window.location.hash = view === 'calculator' ? '' : `#${view}`;
+    const newPath = view === 'calculator' ? '/' : `/${view}`;
+    window.history.pushState({}, '', newPath);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
 
   const handleSearchTransfer = (query: string, location: string) => {
     setSearchQuery(query);
