@@ -245,6 +245,30 @@ export const CATERING_COMPANIES: CateringCompany[] = [
     rating: 4.8,
     reviewCount: 125,
     description: 'Eco-conscious craft services and chef-driven drop-off catering tailored for entertainment studios and film shoots.'
+  },
+  {
+    id: 'contemporary-catering',
+    name: 'Contemporary Catering',
+    categories: ['corporate', 'weddings'],
+    area: 'Beverly Hills & Westside',
+    tags: ['Weddings', 'Corporate', 'Farm-to-Table'],
+    url: 'https://www.contemporarycatering.com',
+    priceLevel: '$$$$',
+    rating: 4.9,
+    reviewCount: 175,
+    description: 'Full-service organic catering specializing in farm-to-table corporate events, luxury weddings, and custom dining.'
+  },
+  {
+    id: 'border-grill-catering',
+    name: 'Border Grill Catering',
+    categories: ['corporate', 'weddings'],
+    area: 'Downtown LA & Santa Monica',
+    tags: ['Corporate', 'Weddings', 'Latin Flavors'],
+    url: 'https://www.bordergrill.com',
+    priceLevel: '$$$',
+    rating: 4.8,
+    reviewCount: 290,
+    description: 'Iconic modern Latin and upscale full-service catering by Celebrity Chefs Mary Sue Milliken and Susan Feniger.'
   }
 ];
 
@@ -368,6 +392,28 @@ export const TACO_PROVIDERS: TacoProvider[] = [
     url: 'https://www.adenstacocatering.com/',
     specialty: 'Custom 3-meat and 4-meat packages with churro station',
     minGuests: 30,
+    startingPrice: '$20/person'
+  },
+  {
+    id: 'soho-taco',
+    name: 'SOHO TACO',
+    category: ['mobile', 'event'],
+    area: 'Greater LA & South Bay',
+    description: 'Gourmet mobile taco bar catering featuring handcrafted tortillas, prime meats, and fresh salsas grilled on-site.',
+    url: 'https://www.sohotaco.com/',
+    specialty: 'Handmade corn tortillas & gourmet salsas',
+    minGuests: 30,
+    startingPrice: '$21/person'
+  },
+  {
+    id: 'tacos-zapata',
+    name: 'Tacos Zapata',
+    category: ['mobile', 'event'],
+    area: 'Pasadena & East LA',
+    description: 'Authentic mobile taco cart catering service specializing in live-grill taco bars for private celebrations and events.',
+    url: 'https://tacoszapata.com/',
+    specialty: 'Live grill taco cart & traditional meat marinades',
+    minGuests: 25,
     startingPrice: '$20/person'
   }
 ];
