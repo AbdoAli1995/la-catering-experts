@@ -40,6 +40,26 @@ const SEO: Record<string, { path: string; title: string; description: string }> 
     title: 'Contact Us | Los Angeles Catering Experts',
     description: 'Contact Los Angeles Catering Experts with questions, feedback or listing requests.',
   },
+  'list-your-business': {
+    path: '/list-your-business',
+    title: 'List Your Catering Business in Los Angeles | Los Angeles Catering Experts',
+    description: 'Get in front of people searching for caterers, taco carts, food trucks, and event chefs in Greater Los Angeles.',
+  },
+  privacy: {
+    path: '/privacy',
+    title: 'Privacy Policy | Los Angeles Catering Experts',
+    description: 'Privacy policy and data handling practices for Los Angeles Catering Experts.',
+  },
+  terms: {
+    path: '/terms',
+    title: 'Terms of Service | Los Angeles Catering Experts',
+    description: 'Terms and conditions for using Los Angeles Catering Experts.',
+  },
+  'do-not-sell': {
+    path: '/do-not-sell',
+    title: 'Do Not Sell or Share My Personal Information | Los Angeles Catering Experts',
+    description: 'Opt-out of personal information sharing under CCPA/CPRA guidelines.',
+  },
 };
 
 const setMeta = (name: string, content: string) => {
@@ -81,8 +101,12 @@ export function App() {
         setCurrentView('about');
       } else if (path === 'contact') {
         setCurrentView('contact');
+      } else if (path === 'list-your-business' || path === 'list-your-business.html') {
+        setCurrentView('list-your-business');
       } else if (path === 'add-business' || path === 'add-business.html') {
-        setCurrentView('add-business');
+        // توجيه الرابط القديم إلى الرابط الأساسي المعتمد نظيفاً
+        window.history.replaceState({}, '', '/list-your-business');
+        setCurrentView('list-your-business');
       } else if (path === 'privacy' || path === 'privacy-policy') {
         setCurrentView('privacy');
       } else if (path === 'terms' || path === 'terms.html') {
@@ -160,7 +184,7 @@ export function App() {
 
         {currentView === 'contact' && <ContactPage onNavigate={navigateTo} />}
 
-        {currentView === 'add-business' && <AddBusinessPage onNavigate={navigateTo} />}
+        {currentView === 'list-your-business' && <AddBusinessPage onNavigate={navigateTo} />}
 
         {currentView === 'privacy' && <PrivacyPage onNavigate={navigateTo} />}
 
