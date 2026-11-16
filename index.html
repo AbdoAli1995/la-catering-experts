@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LA Catering Cost Calculator | Los Angeles Catering Experts</title>
   <meta name="description" content="Get an instant catering quote for your Los Angeles event. Weddings, corporate events, private parties and taco bars. Estimate your cost per guest in seconds.">
+  <meta name="robots" content="index, follow">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:title" content="LA Catering Cost Calculator | Los Angeles Catering Experts">
   <meta property="og:description" content="Get an instant catering quote for your Los Angeles event. Compare vetted LA caterers, taco carts, and private chefs.">
   <meta property="og:url" content="https://losangelescateringexperts.com/">
-  <!-- NEW: Open Graph image tags -->
   <meta property="og:site_name" content="Los Angeles Catering Experts">
   <meta property="og:locale" content="en_US">
   <meta property="og:image" content="https://losangelescateringexperts.com/og-image.jpg">
@@ -21,7 +21,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LA Catering Cost Calculator | Los Angeles Catering Experts">
   <meta name="twitter:description" content="Instant quote calculator and directory for Los Angeles catering, weddings, and taco bars.">
-  <!-- NEW: Twitter image tags -->
   <meta name="twitter:image" content="https://losangelescateringexperts.com/og-image.jpg">
   <meta name="twitter:image:alt" content="Los Angeles skyline with the text Los Angeles Catering Experts">
 
@@ -34,29 +33,135 @@
         "@id": "https://losangelescateringexperts.com/#website",
         "name": "Los Angeles Catering Experts",
         "url": "https://losangelescateringexperts.com/",
-        "description": "Explore catering information and estimate event catering costs in Los Angeles, California.",
+        "description": "Free Los Angeles catering cost calculator and local caterer directory for weddings, corporate events, private parties, and taco bars.",
         "inLanguage": "en-US"
       },
       {
         "@type": "WebApplication",
         "@id": "https://losangelescateringexperts.com/#estimator",
-        "name": "Los Angeles Catering Cost Estimator",
+        "name": "Los Angeles Catering Cost Calculator",
         "url": "https://losangelescateringexperts.com/",
-        "description": "A free online tool to estimate catering costs for weddings, corporate events, and private parties in Los Angeles.",
+        "description": "Calculate instant per-guest and total catering costs in Los Angeles based on event type, guest count, service style, and menu tier.",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Any",
-        "browserRequirements": "Requires JavaScript",
         "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Los Angeles",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "California"
+          }
+        },
         "isPartOf": {
           "@id": "https://losangelescateringexperts.com/#website"
         }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does catering cost in Los Angeles?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Catering in Los Angeles typically ranges from $18 to $150+ per guest depending on the event type and service style. Taco cart catering averages $18–$35 per person, corporate drop-off catering runs $25–$55 per guest, and full-service wedding catering ranges from $75 to $150+ per guest."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I compare Los Angeles catering companies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can use the free Los Angeles Catering Cost Calculator at losangelescateringexperts.com to estimate your budget and browse a curated directory of vetted LA caterers, taco carts, food trucks, and private chefs."
+            }
+          }
+        ]
       }
     ]
   }
   </script>
 </head>
 <body class="bg-[#f4f5f7] text-[#1a1a1a]">
-  <div id="root"></div>
+  <div id="root">
+    <header style="max-width: 1100px; margin: 0 auto; padding: 24px 16px;">
+      <nav aria-label="Primary Navigation">
+        <a href="/">LA Catering Cost Calculator</a> |
+        <a href="/taco-catering">Taco Catering in Los Angeles</a> |
+        <a href="/companies">LA Catering Companies Directory</a> |
+        <a href="/list-your-business">List Your Catering Business</a> |
+        <a href="/about">About Us</a> |
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main style="max-width: 1100px; margin: 0 auto; padding: 16px;">
+      <h1>Los Angeles Catering Cost Calculator &amp; Local Caterer Directory</h1>
+      <p>
+        Estimate your exact event catering budget in seconds and compare vetted catering companies across Greater Los Angeles, Santa Monica, Beverly Hills, Pasadena, and Orange County.
+      </p>
+
+      <section>
+        <h2>Average Catering Prices in Los Angeles (Per Guest Estimates)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Catering Style / Event Type</th>
+              <th scope="col">Estimated Cost Per Guest</th>
+              <th scope="col">Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Taco Cart &amp; Taco Bar Catering</td>
+              <td>$18 – $35 per guest</td>
+              <td>Backyard parties, birthdays, casual events</td>
+            </tr>
+            <tr>
+              <td>Corporate Drop-Off &amp; Buffet Catering</td>
+              <td>$25 – $55 per guest</td>
+              <td>Office lunches, conferences, film &amp; production sets</td>
+            </tr>
+            <tr>
+              <td>Private Chef &amp; Cocktail Party Catering</td>
+              <td>$60 – $110 per guest</td>
+              <td>Intimate dinners, VIP gatherings, anniversaries</td>
+            </tr>
+            <tr>
+              <td>Full-Service Wedding Catering</td>
+              <td>$75 – $150+ per guest</td>
+              <td>Weddings, galas, formal receptions with staff &amp; rentals</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Compare Top Los Angeles Catering Services</h2>
+        <ul>
+          <li><a href="/">Instant LA Catering Cost Estimator</a> – Calculate per-guest pricing, staffing, rentals, and service fees.</li>
+          <li><a href="/taco-catering">Los Angeles Taco Catering Guide</a> – Compare mobile taco carts, gourmet taco bars, and food trucks.</li>
+          <li><a href="/companies">Los Angeles Catering Companies Directory</a> – Browse local caterers by cuisine, neighborhood, and event specialty.</li>
+          <li><a href="/list-your-business">List Your Catering Business</a> – Join the Los Angeles Catering Experts directory to reach event hosts.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer style="max-width: 1100px; margin: 0 auto; padding: 24px 16px;">
+      <p>&copy; Los Angeles Catering Experts. Serving Greater Los Angeles and Southern California.</p>
+      <nav aria-label="Footer Navigation">
+        <a href="/privacy">Privacy Policy</a> |
+        <a href="/terms">Terms of Service</a> |
+        <a href="/do-not-sell">Do Not Sell or Share My Personal Information</a>
+      </nav>
+    </footer>
+  </div>
+
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
