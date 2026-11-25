@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const navItems = [
   { id: 'calculator', label: 'Estimator' },
-  { id: 'taco-catering', label: 'Taco Bar Guide' },
+  { id: 'taco-catering', label: 'Taco Catering' },
   { id: 'companies', label: 'Catering Directory' },
   { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
@@ -27,7 +27,14 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavClick('calculator')}>
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('calculator');
+            }}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <div className="w-9 h-9 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold shadow-sm">
               <UtensilsCrossed className="w-5 h-5" />
             </div>
@@ -39,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                 LA COUNTY CATERING & ESTIMATOR
               </span>
             </div>
-          </div>
+          </a>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
@@ -64,13 +71,17 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
               );
             })}
 
-            <button
-              onClick={() => handleNavClick('add-business')}
-              className="ml-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm"
+            <a
+              href="/list-your-business"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('list-your-business');
+              }}
+              className="ml-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm cursor-pointer"
             >
               <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
               List Your Business
-            </button>
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -112,13 +123,17 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           })}
 
           <div className="pt-2">
-            <button
-              onClick={() => handleNavClick('add-business')}
-              className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm"
+            <a
+              href="/list-your-business"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('list-your-business');
+              }}
+              className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow-sm cursor-pointer"
             >
               <PlusCircle className="w-4 h-4 text-amber-400" />
               List Your Business
-            </button>
+            </a>
           </div>
         </div>
       )}
