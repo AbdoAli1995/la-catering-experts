@@ -5,20 +5,50 @@ interface ContactPageProps {
   onNavigate: (view: string) => void;
 }
 
+const WEB3FORMS_ACCESS_KEY = 'aec30e8e-785e-4520-a2d1-cb6f8638198a';
+
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
+    setErrorMsg(null);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name,
+          email,
+          message,
+          subject: `New Contact Inquiry from ${name} - LA Catering Experts`,
+          from_name: 'Los Angeles Catering Experts',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMsg(data.message || 'Could not send message. Please try again.');
+      }
+    } catch {
+      setErrorMsg('Network error while sending message. Please try again.');
+    } finally {
       setSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    }
   };
 
   return (
@@ -141,10 +171,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   ></textarea>
                 </div>
 
+                {errorMsg && (
+                  <p className="text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                    {errorMsg}
+                  </p>
+                )}
+
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 px-4 rounded-xl font-bold text-white bg-amber-600 hover:bg-amber-700 transition shadow-xs text-sm cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 rounded-xl font-bold text-white bg-amber-600 hover:bg-amber-700 disabled:opacity-60 transition shadow-xs text-sm cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   {submitting ? 'Sending Message...' : 'Send Message'}
@@ -163,6 +199,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                     setName('');
                     setEmail('');
                     setMessage('');
+                    setErrorMsg(null);
                   }}
                   className="px-4 py-2 bg-gray-900 text-white text-xs font-semibold rounded-lg hover:bg-gray-800 transition"
                 >
