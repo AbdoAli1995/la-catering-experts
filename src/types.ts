@@ -18,13 +18,14 @@ export interface CateringCompany {
 export interface TacoProvider {
   id: string;
   name: string;
-  category: ('mobile' | 'truck' | 'event')[];
+  category: ('mobile' | 'truck' | 'event' | 'dropoff')[];
   area: string;
   description: string;
   url: string;
   specialty?: string;
   minGuests?: number;
   startingPrice?: string;
+  tags?: string[]; // اختياري: 'birria' | 'al-pastor' | 'carne-asada-carnitas' | 'seafood-baja' | 'vegan' | 'breakfast' | 'gourmet-fusion'
 }
 
 export interface QuoteCalculation {
