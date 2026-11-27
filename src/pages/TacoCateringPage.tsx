@@ -10,8 +10,8 @@ interface TacoCateringPageProps {
 // طريقة الخدمة: كيف يصل الأكل للحدث
 const SERVICE_TYPES = [
   { id: 'mobile', label: 'Taco Carts (Live On-Site)' },
-  { id: 'truck', label: 'Food Trucks' },
-  { id: 'event', label: 'Taco Bars & Buffets (Staffed)' },
+  { id: 'truck', label: 'Taco Trucks' },
+  { id: 'event', label: 'Taco Bars & Buffets' },
   { id: 'dropoff', label: 'Drop-Off Taco Trays' },
 ] as const;
 
@@ -19,24 +19,30 @@ type ServiceId = (typeof SERVICE_TYPES)[number]['id'];
 
 // التخصص: ماذا يقدّم المزود
 const SPECIALTIES = [
-  { id: 'birria', label: 'Birria & Quesabirria', pattern: /birria|quesabirria/i },
-  { id: 'al-pastor', label: 'Al Pastor & Trompo', pattern: /pastor|trompo/i },
-  { id: 'carne-asada-carnitas', label: 'Carne Asada & Carnitas', pattern: /carne asada|carnitas/i },
-  { id: 'seafood-baja', label: 'Seafood & Baja', pattern: /seafood|shrimp|fish|baja/i },
-  { id: 'vegan', label: 'Vegan & Vegetarian', pattern: /vegan|vegetarian|plant-based/i },
-  { id: 'breakfast', label: 'Breakfast Tacos', pattern: /breakfast/i },
-  { id: 'gourmet-fusion', label: 'Gourmet & Fusion', pattern: /gourmet|fusion/i },
+  { id: 'birria', label: 'Birria & Quesabirria' },
+  { id: 'al-pastor', label: 'Al Pastor & Trompo' },
+  { id: 'carne-asada-carnitas', label: 'Carne Asada & Carnitas' },
+  { id: 'seafood-baja', label: 'Seafood & Baja' },
+  { id: 'vegan', label: 'Vegan & Vegetarian' },
+  { id: 'breakfast', label: 'Breakfast Tacos' },
+  { id: 'gourmet-fusion', label: 'Gourmet & Fusion' },
 ];
 
 // لا يظهر زر تخصص إلا إذا ضم هذا العدد من المزودين على الأقل
 const MIN_PROVIDERS_FOR_CHIP = 3;
 
-// إن وُجد tags في بيانات المزود تُستخدم كما هي، وإلا تُستنتج من الوصف والتخصص
-const getSpecialties = (provider: TacoProvider): string[] => {
-  if (provider.tags) return provider.tags;
-  const text = [provider.description, provider.specialty || ''].join(' ');
-  return SPECIALTIES.filter((s) => s.pattern.test(text)).map((s) => s.id);
+// تخصصات المزودين الحاليين، محددة صراحةً من نص كل مزود في caterers.ts
+// المزودون الجدد يحملون tags داخل بياناتهم مباشرة
+const SPECIALTY_BY_ID: Record<string, string[]> = {
+  'fuego-tacos-catering': ['carne-asada-carnitas', 'vegan'],
+  'leos-tacos-truck': ['al-pastor'],
+  'tacos-mexla': ['birria'],
+  'tacos-tamix': ['al-pastor'],
+  'soho-taco': ['gourmet-fusion'],
 };
+
+const getSpecialties = (provider: TacoProvider): string[] =>
+  provider.tags ?? SPECIALTY_BY_ID[provider.id] ?? [];
 
 const specialtyLabel = (id: string) => SPECIALTIES.find((s) => s.id === id)?.label ?? id;
 
@@ -50,12 +56,13 @@ export const TacoCateringPage: React.FC<TacoCateringPageProps> = ({ onNavigate }
     []
   );
 
+  // لا يظهر خيار يطابق كل المزودين (لأنه لا يفرّق بين أحد) ولا خيار بلا مزودين
   const serviceOptions = useMemo(
     () =>
       SERVICE_TYPES.map((s) => ({
         ...s,
         count: TACO_PROVIDERS.filter((p) => p.category.includes(s.id)).length,
-      })).filter((s) => s.count > 0),
+      })).filter((s) => s.count > 0 && s.count < TACO_PROVIDERS.length),
     []
   );
 
@@ -108,7 +115,7 @@ export const TacoCateringPage: React.FC<TacoCateringPageProps> = ({ onNavigate }
           Find Taco Catering in Los Angeles
         </h1>
         <p className="text-sm sm:text-base text-gray-600 max-w-3xl leading-relaxed mb-6">
-          Compare mobile taco carts, food trucks, on-site taco bars and authentic Mexican event catering services across Southern California.
+          Compare mobile taco carts, taco trucks, on-site taco bars and authentic Mexican event catering services across Southern California.
           Explore verified providers and contact them directly for custom menus, availability, and quotes.
         </p>
 
@@ -198,7 +205,7 @@ export const TacoCateringPage: React.FC<TacoCateringPageProps> = ({ onNavigate }
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredProviders.map(({ provider, specialties }) => {
             const { label, Icon } = provider.category.includes('truck')
-              ? { label: 'Food Truck', Icon: Truck }
+              ? { label: 'Taco Truck', Icon: Truck }
               : provider.category.includes('mobile')
               ? { label: 'Mobile Taco Cart', Icon: Flame }
               : provider.category.includes('dropoff')
@@ -293,7 +300,7 @@ export const TacoCateringPage: React.FC<TacoCateringPageProps> = ({ onNavigate }
           </h2>
           <p className="text-sm text-gray-600 leading-relaxed">
             Ask whether your quote includes on-site taqueros, grilling setup, service window duration (typically 2–3 hours),
-            travel fees, cleanup, taxes, and gratuity. For food trucks, verify parking footprint clearance and venue street permits.
+            travel fees, cleanup, taxes, and gratuity. For taco trucks, verify parking footprint clearance and venue street permits.
             Ensure options for vegetarians (grilled nopales, rajas con crema, mushrooms) and confirm minimum guest guarantees.
           </p>
         </div>
