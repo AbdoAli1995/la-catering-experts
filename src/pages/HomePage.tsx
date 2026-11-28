@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DualSearchBar } from '../components/DualSearchBar';
 import { CostEstimator } from '../components/CostEstimator';
 import { TacoCalculator } from '../components/TacoCalculator';
 import { CATERING_COMPANIES } from '../data/caterers';
-import { HelpCircle, DollarSign, Award, ChevronRight, ShieldCheck, MapPin, Utensils } from 'lucide-react';
+import { HelpCircle, DollarSign, ChevronRight, ShieldCheck, MapPin } from 'lucide-react';
 
 interface HomePageProps {
   onNavigate: (view: string) => void;
@@ -11,11 +11,30 @@ interface HomePageProps {
   onCategoryFilterTransfer: (category: string) => void;
 }
 
+const CATEGORY_LABELS: Record<string, string> = {
+  weddings: 'Weddings',
+  corporate: 'Corporate',
+  tacos: 'Tacos',
+  film: 'Film & TV',
+  charcuterie: 'Charcuterie',
+};
+
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onSearchTransfer,
   onCategoryFilterTransfer,
 }) => {
+  useEffect(() => {
+    document.title = 'Los Angeles Catering Directory & Event Cost Calculator | LA County';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        'Compare independent Los Angeles caterers, taco carts, and event catering companies across LA County. Estimate per-person costs and taco quantities.'
+      );
+    }
+  }, []);
+
   const handleSearch = (query: string, location: string) => {
     onSearchTransfer(query, location);
     onNavigate('companies');
@@ -46,7 +65,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             Find Local Catering in Greater Los Angeles
           </h1>
           <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Compare Vetted Caterers, Private Chefs, and Taco Bars Across LA County with transparent per-person pricing.
+            Compare Local Caterers, Private Chefs, and Taco Bars Across LA County with transparent per-person pricing benchmarks.
           </p>
 
           <DualSearchBar
@@ -75,77 +94,83 @@ export const HomePage: React.FC<HomePageProps> = ({
         <TacoCalculator onExploreTacoCaterers={() => onNavigate('taco-catering')} />
       </section>
 
-      {/* Featured Vetted Caterers */}
+      {/* Featured Caterers */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-baseline justify-between mb-6 pb-2 border-b border-gray-200 gap-2">
           <div>
             <h3 className="text-xl font-bold text-gray-900">Featured Los Angeles Caterers</h3>
-            <p className="text-xs text-gray-500">Top-rated culinary providers across Greater LA</p>
+            <p className="text-xs text-gray-500">Independent culinary providers across Greater LA</p>
           </div>
           <button
             onClick={() => onNavigate('companies')}
             className="text-xs font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1"
           >
-            View all 20+ directory listings <ChevronRight className="w-3.5 h-3.5" />
+            View all directory listings <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {featuredCaterers.map((caterer) => (
-            <div
-              key={caterer.id}
-              className="bg-white rounded-xl border border-gray-200 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
-                  <span className="font-semibold text-amber-700">{caterer.priceLevel || '$$'}</span>
-                  <span className="text-gray-500 font-medium">★ {caterer.rating} ({caterer.reviewCount})</span>
-                </div>
-                <h4 className="font-bold text-gray-900 text-base mb-1 line-clamp-1">{caterer.name}</h4>
-                <p className="text-xs text-gray-500 flex items-center gap-1 mb-3">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                  <span className="truncate">{caterer.area}</span>
-                </p>
-                <p className="text-xs text-gray-600 line-clamp-2 mb-4">
-                  {caterer.description}
-                </p>
-              </div>
+          {featuredCaterers.map((caterer) => {
+            const categorySummary = caterer.categories
+              .map((cat) => CATEGORY_LABELS[cat] || cat)
+              .join(' • ');
 
-              <div>
-                <div className="flex flex-wrap gap-1 mb-3">
-                  {caterer.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded-sm text-[10px] font-medium bg-amber-50 text-amber-900 border border-amber-200/60"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+            return (
+              <div
+                key={caterer.id}
+                className="bg-white rounded-xl border border-gray-200 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
+                    <span className="font-semibold text-amber-700">{caterer.priceLevel || '$$'}</span>
+                    <span className="text-gray-500 font-medium">{categorySummary}</span>
+                  </div>
+                  <h4 className="font-bold text-gray-900 text-base mb-1 line-clamp-1">{caterer.name}</h4>
+                  <p className="text-xs text-gray-500 flex items-center gap-1 mb-3">
+                    <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <span className="truncate">{caterer.area}</span>
+                  </p>
+                  <p className="text-xs text-gray-600 line-clamp-2 mb-4">
+                    {caterer.description}
+                  </p>
                 </div>
-                {caterer.url ? (
-                  <a
-                    href={caterer.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full text-center py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition"
-                  >
-                    Visit Website ↗
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => onNavigate('add-business')}
-                    className="block w-full text-center py-2 px-3 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition"
-                  >
-                    Claim Listing
-                  </button>
-                )}
+
+                <div>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {caterer.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 rounded-sm text-[10px] font-medium bg-amber-50 text-amber-900 border border-amber-200/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  {caterer.url ? (
+                    <a
+                      href={caterer.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition"
+                    >
+                      Visit Website ↗
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => onNavigate('list-your-business')}
+                      className="block w-full text-center py-2 px-3 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition"
+                    >
+                      Claim Listing
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Pricing Guide & FAQ Section (from original index.html) */}
+      {/* Pricing Guide & FAQ Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-xs space-y-8">
           <div>
