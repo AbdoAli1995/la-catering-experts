@@ -8,8 +8,6 @@ export interface CateringCompany {
   tags: string[];
   url?: string;
   phone?: string;
-  rating?: number;
-  reviewCount?: number;
   priceLevel?: '$' | '$$' | '$$$' | '$$$$';
   description?: string;
   isClaimable?: boolean;
@@ -25,7 +23,7 @@ export interface TacoProvider {
   specialty?: string;
   minGuests?: number;
   startingPrice?: string;
-  tags?: string[]; // اختياري: 'birria' | 'al-pastor' | 'carne-asada-carnitas' | 'seafood-baja' | 'vegan' | 'breakfast' | 'gourmet-fusion'
+  tags?: string[];
 }
 
 export interface QuoteCalculation {
