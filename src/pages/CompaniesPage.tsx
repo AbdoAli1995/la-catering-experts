@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { CATERING_COMPANIES } from '../data/caterers';
-import { Search, MapPin, ExternalLink, ShieldCheck, Tag, Star } from 'lucide-react';
+import { Search, MapPin, ExternalLink } from 'lucide-react';
 
 interface CompaniesPageProps {
   onNavigate: (view: string) => void;
@@ -8,6 +8,14 @@ interface CompaniesPageProps {
   searchQuery?: string;
   locationQuery?: string;
 }
+
+const CATEGORY_LABELS: Record<string, string> = {
+  weddings: 'Wedding Catering',
+  corporate: 'Corporate Events',
+  tacos: 'Taco Catering',
+  film: 'Film & TV Sets',
+  charcuterie: 'Charcuterie & Grazing',
+};
 
 export const CompaniesPage: React.FC<CompaniesPageProps> = ({
   onNavigate,
@@ -18,6 +26,22 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
   const [filter, setFilter] = useState<string>(activeFilter);
   const [search, setSearch] = useState<string>(searchQuery);
   const [location, setLocation] = useState<string>(locationQuery);
+
+  useEffect(() => {
+    const activeLabel = CATEGORY_LABELS[filter] || 'Catering Companies';
+    document.title =
+      filter === 'all'
+        ? 'Los Angeles Catering Companies Directory | Weddings, Corporate & Events'
+        : `${activeLabel} in Los Angeles | Verified LA Caterers Directory`;
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute(
+        'content',
+        'Browse independent Los Angeles catering companies for weddings, corporate events, taco bars, and film production sets across LA County neighborhoods.'
+      );
+    }
+  }, [filter]);
 
   const filterTabs = [
     { id: 'all', label: 'All Caterers' },
@@ -33,7 +57,6 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
     const loc = location.trim().toLowerCase();
 
     return CATERING_COMPANIES.filter((company) => {
-      // Category match
       const matchesCategory =
         filter === 'all' ||
         company.categories.includes(filter) ||
@@ -41,12 +64,10 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
 
       if (!matchesCategory) return false;
 
-      // Location match
       if (loc && !company.area.toLowerCase().includes(loc)) {
         return false;
       }
 
-      // Query match
       if (!q) return true;
       const haystack = [
         company.name,
@@ -70,7 +91,7 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
           Los Angeles Catering Companies Directory
         </h1>
         <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6">
-          Find caterers for weddings, corporate events, live taco bars, and film production crews across LA County.
+          Compare independent caterers for weddings, corporate events, live taco bars, and film production crews across LA County.
         </p>
 
         {/* Filter buttons */}
@@ -116,12 +137,16 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
             />
           </div>
         </div>
+
+        <p className="text-[11px] text-gray-400 mt-4 italic">
+          Listings are independently compiled and not ranked by paid placement. Contact providers directly to confirm availability and permits.
+        </p>
       </div>
 
       {/* Results Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-bold uppercase tracking-wider text-gray-700">
-          Showing {filteredCompanies.length} Verified Listing{filteredCompanies.length === 1 ? '' : 's'}
+          Showing {filteredCompanies.length} Catering Compan{filteredCompanies.length === 1 ? 'y' : 'ies'}
         </h2>
         {(search || location || filter !== 'all') && (
           <button
@@ -140,88 +165,91 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
       {/* Grid of Company Cards */}
       {filteredCompanies.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredCompanies.map((company) => (
-            <article
-              key={company.id}
-              className="bg-white rounded-xl border border-gray-200 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1 text-amber-600 font-bold text-xs">
-                    <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                    <span>{company.rating}</span>
-                    <span className="text-gray-400 font-normal">({company.reviewCount})</span>
-                  </div>
-                  <span className="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-sm">
-                    {company.priceLevel || '$$'}
-                  </span>
-                </div>
+          {filteredCompanies.map((company) => {
+            const primaryCategory =
+              CATEGORY_LABELS[company.categories[0]] || 'Event Catering';
 
-                <h3 className="text-base font-bold text-gray-900 mb-1">
-                  {company.url ? (
-                    <a
-                      href={company.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-amber-700 hover:underline inline-flex items-center gap-1"
-                    >
-                      <span>{company.name}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
-                    </a>
-                  ) : (
-                    <span>{company.name}</span>
-                  )}
-                </h3>
-
-                <p className="text-xs text-gray-500 flex items-center gap-1 mb-2.5">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                  <span>{company.area}</span>
-                </p>
-
-                {company.description && (
-                  <p className="text-xs text-gray-600 line-clamp-3 mb-4 leading-relaxed">
-                    {company.description}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {company.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded-sm text-[11px] font-medium bg-amber-50 text-amber-900 border border-amber-200/80"
-                    >
-                      {tag}
+            return (
+              <article
+                key={company.id}
+                className="bg-white rounded-xl border border-gray-200 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-800 border border-orange-200">
+                      {primaryCategory}
                     </span>
-                  ))}
-                </div>
+                    <span className="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-sm">
+                      {company.priceLevel || '$$'}
+                    </span>
+                  </div>
 
-                {/* Actions */}
-                <div className="pt-3 border-t border-gray-100">
-                  {company.url ? (
-                    <a
-                      href={company.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition"
-                    >
-                      <span>Visit Official Website</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => onNavigate('add-business')}
-                      className="w-full py-2 px-3 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition"
-                    >
-                      Claim or View Listing
-                    </button>
+                  <h3 className="text-base font-bold text-gray-900 mb-1">
+                    {company.url ? (
+                      <a
+                        href={company.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-amber-700 hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>{company.name}</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                      </a>
+                    ) : (
+                      <span>{company.name}</span>
+                    )}
+                  </h3>
+
+                  <p className="text-xs text-gray-500 flex items-center gap-1 mb-2.5">
+                    <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    <span>{company.area}</span>
+                  </p>
+
+                  {company.description && (
+                    <p className="text-xs text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+                      {company.description}
+                    </p>
                   )}
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {company.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 rounded-sm text-[11px] font-medium bg-amber-50 text-amber-900 border border-amber-200/80"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="pt-3 border-t border-gray-100">
+                    {company.url ? (
+                      <a
+                        href={company.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold transition"
+                      >
+                        <span>Visit Official Website</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => onNavigate('list-your-business')}
+                        className="w-full py-2 px-3 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition"
+                      >
+                        Claim or View Listing
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       ) : (
         <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
@@ -244,13 +272,13 @@ export const CompaniesPage: React.FC<CompaniesPageProps> = ({
       {/* Claim or Add notice */}
       <div className="bg-gray-100 rounded-xl p-6 text-center text-xs text-gray-600">
         <p className="font-semibold text-gray-800 mb-1">
-          Are you a licensed Los Angeles caterer or food truck owner?
+          Are you a licensed Los Angeles caterer or taco truck owner?
         </p>
         <p className="mb-3">
-          Get discovered by thousands of party hosts, corporate coordinators, and wedding planners monthly.
+          Submit your business details to connect with event hosts, corporate coordinators, and wedding planners across LA County.
         </p>
         <button
-          onClick={() => onNavigate('add-business')}
+          onClick={() => onNavigate('list-your-business')}
           className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition"
         >
           Submit or Claim Your Business &rarr;
